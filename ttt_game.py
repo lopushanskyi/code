@@ -1,5 +1,11 @@
 import random
 
+""" Choose a X or O? x/o """
+""" Are you ready to play? y/n """
+""" Draw a game table """
+""" Choose your position (1-9) """
+""" Congratulations """
+""" Do you want to play again? """
 """ 
 # -------------
 # | 1 | 2 | 3 |
@@ -21,14 +27,14 @@ def win_message(name):
     print('-' * 45)
 
 
-def display_board(board):
+def display_board(game_board):
     """ function that can print out a board """
     print('-------------')
-    print(f'| {board[1]} | {board[2]} | {board[3]} |')
+    print(f'| {game_board[1]} | {game_board[2]} | {game_board[3]} |')
     print('-------------')
-    print(f'| {board[4]} | {board[5]} | {board[6]} |')
+    print(f'| {game_board[4]} | {game_board[5]} | {game_board[6]} |')
     print('-------------')
-    print(f'| {board[7]} | {board[8]} | {board[9]} |')
+    print(f'| {game_board[7]} | {game_board[8]} | {game_board[9]} |')
     print('-------------')
 
 
@@ -49,23 +55,23 @@ def player_input():
             continue
 
 
-def place_marker(board, marker, position):
+def place_marker(game_board, marker, position):
     """ function that takes in the board list object, a marker ('X' or 'O'),
     and a desired position (number 1-9) and assigns it to the board """
-    board[position] = marker
+    game_board[position] = marker
 
 
-def win_check(board, marker):
+def win_check(game_board, marker):
     """ function that takes in a board and a mark (X or O)
     and then checks to see if that mark has won """
-    win_list = [board[1:4],
-                board[4:7],
-                board[7:10],
-                board[1:10:4],
-                board[3:8:2],
-                board[1:8:3],
-                board[2:9:3],
-                board[3:10:3]]
+    win_list = [game_board[1:4],
+                game_board[4:7],
+                game_board[7:10],
+                game_board[1:10:4],
+                game_board[3:8:2],
+                game_board[1:8:3],
+                game_board[2:9:3],
+                game_board[3:10:3]]
     if [marker, marker, marker] in win_list:
         return True
     else:
@@ -79,31 +85,31 @@ def choose_first():
     return random.choice(players)
 
 
-def space_check(board, position):
+def space_check(game_board, position):
     """ function that returns a boolean indicating whether a space on the
     board is freely available """
-    if board[position] == ' ':
+    if game_board[position] == ' ':
         return True
     return False
 
 
-def full_board_check(board):
+def full_board_check(game_board):
     """ function that checks if the board is full and returns a boolean value.
     True if full, False otherwise """
     x = ' '
-    if x in board:
+    if x in game_board:
         return False
     return True
 
 
-def player_choice(board):
+def player_choice(game_board):
     """ function that asks for a player's next position (as a number 1-9)
     and then uses the function from step 6 to check if it's a free position.
     If it is, then return the position for later use """
     while True:
         try:
             player_next_turn = int(input('Choose your next position: (1-9): '))
-            if not space_check(board, player_next_turn):
+            if not space_check(game_board, player_next_turn):
                 print('This is occupied cell. Try again')
             else:
                 return player_next_turn
