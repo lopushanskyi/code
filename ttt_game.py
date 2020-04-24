@@ -1,11 +1,5 @@
 import random
 
-""" Choose a X or O? x/o """
-""" Are you ready to play? y/n """
-""" Draw a game table """
-""" Choose your position (1-9) """
-""" Congratulations """
-""" Do you want to play again? """
 """ 
 # -------------
 # | 1 | 2 | 3 |
