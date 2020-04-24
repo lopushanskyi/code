@@ -1,12 +1,5 @@
 import random
-
-""" Choose a X or O? x/o """
-""" Are you ready to play? y/n """
-""" Draw a game table """
-""" Choose your position (1-9) """
-""" Congratulations """
-""" Do you want to play again? """
-""" 
+"""
 # -------------
 # | 1 | 2 | 3 |
 # -------------
@@ -43,7 +36,7 @@ def player_input():
     assign their marker as 'X' or 'O' """
     global player1, player2
     while True:
-        player_mark_choice = input('Do you want to be "X" or "O"? ')
+        player_mark_choice = input('Player1, do you want to be "X" or "O"? ').upper()
         if player_mark_choice == 'X':
             player1, player2 = 'X', 'O'
             return player1, player2
@@ -90,7 +83,8 @@ def space_check(game_board, position):
     board is freely available """
     if game_board[position] == ' ':
         return True
-    return False
+    else:
+        return False
 
 
 def full_board_check(game_board):
@@ -99,7 +93,8 @@ def full_board_check(game_board):
     x = ' '
     if x in game_board:
         return False
-    return True
+    else:
+        return True
 
 
 def player_choice(game_board):
@@ -129,10 +124,9 @@ def replay():
         return True
 
 
-while not full_board_check(board):
+while True:
     print('Welcome to Tic Tac Toe Game!')
     display_board(board)
-    player_input()
 
     while True:
         place_marker(board, player1, player_choice(board))
@@ -141,11 +135,19 @@ while not full_board_check(board):
             win_message(player1)
             board = ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
             break
+        elif full_board_check(board):
+            display_board(board)
+            print('Tie Game')
+            break
         place_marker(board, player2, player_choice(board))
         display_board(board)
         if win_check(board, player2):
             win_message(player2)
             board = ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+            break
+        elif full_board_check(board):
+            display_board(board)
+            print('Tie Game')
             break
         continue
 
