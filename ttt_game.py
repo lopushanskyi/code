@@ -1,5 +1,6 @@
 import random
-"""
+
+""" 
 # -------------
 # | 1 | 2 | 3 |
 # -------------
@@ -12,12 +13,24 @@ import random
 board = ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 player1 = ''
 player2 = ''
+first_turn = ''
+second_turn = ''
 
 
 def win_message(name):
     print('-' * 45)
     print(f'Congratulations! Player {name} won')
     print('-' * 45)
+    global board
+    board = ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+
+
+def tie_message():
+    print('-' * 45)
+    print(f'Tie game!')
+    print('-' * 45)
+    global board
+    board = ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 
 
 def display_board(game_board):
@@ -36,7 +49,7 @@ def player_input():
     assign their marker as 'X' or 'O' """
     global player1, player2
     while True:
-        player_mark_choice = input('Player1, do you want to be "X" or "O"? ').upper()
+        player_mark_choice = input('Do you want to be "X" or "O"? ').upper()
         if player_mark_choice == 'X':
             player1, player2 = 'X', 'O'
             return player1, player2
@@ -127,27 +140,32 @@ def replay():
 while True:
     print('Welcome to Tic Tac Toe Game!')
     display_board(board)
+    choice = player_input()
+    if choose_first() == choice[0]:
+        first_turn = choice[0]
+        second_turn = choice[1]
+        print(f'First turn — Player {choice[0]}')
+    else:
+        first_turn = choice[1]
+        second_turn = choice[0]
+        print(f'First turn — Player {choice[1]}')
 
     while True:
-        place_marker(board, player1, player_choice(board))
+        place_marker(board, first_turn, player_choice(board))
         display_board(board)
-        if win_check(board, player1):
-            win_message(player1)
-            board = ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+        if win_check(board, first_turn):
+            win_message(first_turn)
             break
         elif full_board_check(board):
-            display_board(board)
-            print('Tie Game')
+            tie_message()
             break
-        place_marker(board, player2, player_choice(board))
+        place_marker(board, second_turn, player_choice(board))
         display_board(board)
-        if win_check(board, player2):
-            win_message(player2)
-            board = ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+        if win_check(board, second_turn):
+            win_message(second_turn)
             break
         elif full_board_check(board):
-            display_board(board)
-            print('Tie Game')
+            tie_message()
             break
         continue
 
